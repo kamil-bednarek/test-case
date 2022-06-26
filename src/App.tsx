@@ -1,14 +1,12 @@
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Details } from "./pages/Details";
 import { Listing } from "./pages/Listing";
 import {
-  Auth0Provider,
   withAuthenticationRequired,
-  WithAuthenticationRequiredOptions,
 } from "@auth0/auth0-react";
 import {Home} from "./pages/Home";
 
@@ -17,7 +15,7 @@ const ProtectedRoute = ({ component, ...args }: any) => {
   return <Component />;
 };
 
-function App() {
+export const App = ()  =>{
   return (
     <BrowserRouter>
       <Routes>
@@ -34,4 +32,3 @@ function App() {
   );
 }
 
-export default App;
