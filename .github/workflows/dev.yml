@@ -19,5 +19,5 @@ jobs:
       - name: 🔨 Build Project
         run: |
           npm install --force
-          npm run build
+          CI=false npm run build
 
