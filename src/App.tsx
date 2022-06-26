@@ -1,28 +1,36 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { useAuth0 } from "@auth0/auth0-react";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { Details } from "./pages/Details";
+import { Listing } from "./pages/Listing";
+import {
+  Auth0Provider,
+  withAuthenticationRequired,
+  WithAuthenticationRequiredOptions,
+} from "@auth0/auth0-react";
+import {Home} from "./pages/Home";
+
+const ProtectedRoute = ({ component, ...args }: any) => {
+  const Component = withAuthenticationRequired(component, args);
+  return <Component />;
+};
 
 function App() {
-  const { loginWithRedirect, logout, isAuthenticated, isLoading, user } =
-    useAuth0();
   return (
-    <div className="App">
-      <button onClick={() => logout({ returnTo: window.location.origin })}>
-        Log Out
-      </button>
-      <button onClick={() => loginWithRedirect()}>Log In</button>
-      asd
-      <>
-        {!isLoading && isAuthenticated && (
-          <div>
-            <img src={user?.picture} alt={user?.name} />
-            <h2>{user?.name}</h2>
-            <p>{user?.email}</p>
-          </div>
-        )}
-      </>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="listing" element={<Listing />} />
+          <Route
+            path="details"
+            element={<ProtectedRoute component={Details} />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
