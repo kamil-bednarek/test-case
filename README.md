@@ -1,5 +1,3 @@
-[TOC]
-
 #### How to install
 
 You need Docker and preferably Docker compose;
